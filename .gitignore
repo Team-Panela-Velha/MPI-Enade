@@ -55,3 +55,6 @@ dkms.conf
 #bkp files
 
 *.ini
+
+#dados enade
+2.Dados/*.txt
