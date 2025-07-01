@@ -57,4 +57,4 @@ dkms.conf
 *.ini
 
 #dados enade
-2.Dados/*.txt
+2.DADOS/*.txt
