@@ -418,10 +418,7 @@ int main(int argc, char *argv[])
         printf("=== RESULTADOS DA ANÁLISE DE DADOS ENADE PARA ALUNOS DE ADS ===\n");
         printf("-------------------------------------------------------------------\n");
 
-        printf("\n- Quantos alunos se matricularam no curso?\n");
-        printf("   Total de alunos matriculados: %d\n", total_alunos_ads_global);
-
-         int total_afirmativas = contadores_QE_I15_global[1] + contadores_QE_I15_global[2] + contadores_QE_I15_global[3] + contadores_QE_I15_global[4] + contadores_QE_I15_global[5];
+        int total_afirmativas = contadores_QE_I15_global[1] + contadores_QE_I15_global[2] + contadores_QE_I15_global[3] + contadores_QE_I15_global[4] + contadores_QE_I15_global[5];
         printf("\n   Total de alunos que entraram por ações afirmativas: %d\n", total_afirmativas);
         printf("     Percentual de alunos provenientes de ações afirmativas: %.2f%%\n", ((double)total_afirmativas / total_alunos_ads_global * 100.0));
 
