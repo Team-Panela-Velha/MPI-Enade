@@ -418,19 +418,8 @@ int main(int argc, char *argv[])
         printf("=== RESULTADOS DA ANÁLISE DE DADOS ENADE PARA ALUNOS DE ADS ===\n");
         printf("-------------------------------------------------------------------\n");
 
-        printf("\nQE_I15 - Ações Afirmativas para ingresso no Ensino Superior:\n");
-        printf("   A (Não): %d\n", contadores_QE_I15_global[0]);
-        printf("   B (Sim, por crit. étnico-racial): %d\n", contadores_QE_I15_global[1]);
-        printf("   C (Sim, por crit. de renda): %d\n", contadores_QE_I15_global[2]);
-        printf("   D (Sim, por esc. pública/bolsa): %d\n", contadores_QE_I15_global[3]);
-        printf("   E (Sim, por combinação de critérios): %d\n", contadores_QE_I15_global[4]);
-        printf("   F (Sim, por sist. de seleção diferente): %d\n", contadores_QE_I15_global[5]);
-        printf("   Respostas Vazias (QE_I15): %d\n", contadores_QE_I15_vazio_global);
-        printf("   Linhas ignoradas por incompletude (QE_I15): %d\n", ignoradas_I15_global);
-
-        int total_afirmativas = contadores_QE_I15_global[1] + contadores_QE_I15_global[2] + contadores_QE_I15_global[3] + contadores_QE_I15_global[4] + contadores_QE_I15_global[5];
-        printf("   Total de alunos que entraram por ações afirmativas: %d\n", total_afirmativas);
-        printf("Percentual de alunos provenientes de ações afirmativas: %.2f%%\n", ((double)total_afirmativas / total_alunos_ads_global * 100.0));
+        printf("\n- Quantos alunos se matricularam no curso?\n");
+        printf("   Total de alunos matriculados: %d\n", total_alunos_ads_global);
 
         printf("\nQE_I22 - Número de livros lidos no ano (exceto didáticos):\n");
         printf("   A (Nenhum): %d\n", contadores_QE_I22_global[0]);
