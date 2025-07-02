@@ -6,11 +6,18 @@ Este projeto implementa uma análise paralela dos microdados do ENADE 2014, foca
 
 ## Objetivo
 
-O programa analisa três questões específicas do questionário socioeconômico do ENADE 2014 para estudantes de ADS:
+O programa analisa diversas questões específicas do questionário socioeconômico do ENADE 2014 para estudantes de ADS, incluindo:
 
 - **QE_I15**: Ações Afirmativas para ingresso no Ensino Superior
 - **QE_I22**: Número de livros lidos no ano (exceto didáticos)
 - **QE_I23**: Horas dedicadas aos estudos por semana (excetuando aulas)
+- **TP_SEXO**: Sexo do estudante
+- **QE_I18**: Modalidade de ensino médio concluída
+- **QE_I19**: Situação de trabalho durante a graduação
+- **QE_I21**: Participação em atividades extracurriculares
+- **TP_PR_GER**: Nota geral do curso (faixas de desempenho)
+
+Essas questões são analisadas para identificar padrões e tendências entre os estudantes de ADS, considerando também respostas vazias e linhas incompletas.
 
 ## Funcionalidades
 
@@ -29,20 +36,26 @@ O programa analisa três questões específicas do questionário socioeconômico
 ## Estrutura dos Dados
 
 ### Arquivos de Entrada
-O programa espera 42 arquivos de microdados no diretório `2.DADOS/`:
+O programa espera 42 arquivos de microdados no diretório `2.DADOS/`. Para baixar os arquivos, acesse o link oficial do INEP:
+
+[Download dos Microdados ENADE 2014](https://download.inep.gov.br/microdados/microdados_enade_2014_LGPD.zip)
+
+**Nota:** Após o download, extraia os arquivos e coloque a pasta `2.DADOS` no diretório raiz do projeto.
+
 ```
-2.DADOS/
-├── microdados2014_arq1.txt
-├── microdados2014_arq2.txt
-├── ...
-└── microdados2014_arq42.txt
+Projeto MPI/
+├── main.c
+├── README.md
+├── 2.DADOS/
+│   ├── microdados2014_arq1.txt
+│   ├── microdados2014_arq2.txt
+│   ├── ...
+│   └── microdados2014_arq42.txt
 ```
 
 ### Formato dos Dados
 - Arquivos CSV separados por ponto e vírgula (;)
 - Primeira linha contém cabeçalho com nomes das colunas
-- Coluna 2: CO_CURSO (código do curso)
-- Coluna 6: CO_GRUPO (código do grupo - 72 para ADS)
 
 ## Pré-requisitos
 
@@ -69,78 +82,17 @@ sudo apt install libopenmpi-dev openmpi-bin
 
 ## Compilação
 
-### Windows (com MS-MPI)
-```cmd
-mpicc -o main main.c
-```
-
-### Linux (com OpenMPI)
+### Linux (com OpenMPI) ou Windows (com MS-MPI)
 ```bash
 mpicc -o main main.c
 ```
 
 ## Execução
 
-### Execução Sequencial (1 processo)
-```bash
-mpirun -n 1 ./main
-```
-
 ### Execução Paralela (múltiplos processos)
 ```bash
 # Exemplo com 4 processos
 mpirun -n 4 ./main
-
-# Em cluster ou múltiplas máquinas
-mpirun -n 8 -hostfile hosts ./main
-```
-
-## Resultados
-
-O programa gera um relatório detalhado incluindo:
-
-### QE_I15 - Ações Afirmativas
-- A: Não utilizou ações afirmativas
-- B: Sim, por critério étnico-racial
-- C: Sim, por critério de renda
-- D: Sim, por escola pública/bolsa
-- E: Sim, por combinação de critérios
-- F: Sim, por sistema de seleção diferente
-
-### QE_I22 - Livros Lidos (exceto didáticos)
-- A: Nenhum
-- B: 1 a 2 livros
-- C: 3 a 5 livros
-- D: 6 a 8 livros
-- E: Mais de 8 livros
-
-### QE_I23 - Horas de Estudo por Semana
-- A: Nenhuma (apenas assiste às aulas)
-- B: De uma a três horas
-- C: De quatro a sete horas
-- D: De oito a doze horas
-- E: Mais de doze horas
-
-### Estatísticas Adicionais
-- Total de alunos ADS analisados
-- Número de respostas vazias por questão
-- Linhas ignoradas por incompletude de dados
-
-## Exemplo de Saída
-
-```
--------------------------------------------------------------------
-=== RESULTADOS DA ANÁLISE DE DADOS ENADE PARA ALUNOS DE ADS ===
--------------------------------------------------------------------
-
-QE_I15 - Ações Afirmativas para ingresso no Ensino Superior:
-  A (Não): 15420
-  B (Sim, por crit. étnico-racial): 2341
-  C (Sim, por crit. de renda): 3102
-  ...
-
-Total de registros de alunos de ADS analisados: 22847
--------------------------------------------------------------------
 ```
 
 ## Estrutura do Código
@@ -162,35 +114,46 @@ Total de registros de alunos de ADS analisados: 22847
 - Escalabilidade horizontal (mais processos = menor tempo)
 - Eficiência na análise de grandes volumes de dados
 
-### Recomendações
-- Use número de processos múltiplo do número de cores disponíveis
-- Para datasets pequenos, overhead do MPI pode não compensar
-- Teste diferentes configurações para encontrar o ponto ótimo
-
-## Limitações
-
-- Arquivos devem estar no formato CSV com separador `;`
-- Assume estrutura específica das colunas dos microdados ENADE
-- Focado apenas em cursos de ADS (CO_GRUPO = 72)
-- Requer todos os 42 arquivos de dados para execução completa
-
-## Contribuição
-
-Para contribuir com o projeto:
-
-1. Fork o repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-analise`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova análise'`)
-4. Push para a branch (`git push origin feature/nova-analise`)
-5. Abra um Pull Request
-
 ## Licença
 
 Este projeto está sob licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## Contato
+## Desenvolvedores
 
-Para dúvidas ou sugestões, entre em contato através do GitHub.
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/JoYoneyama">
+        <img src="https://img.shields.io/badge/JoYoneyama-github?style=flat&logo=github&logoColor=white&label=github&labelColor=gray&color=blue" alt="JoYoneyama GitHub">
+      </a><br />
+      <sub><b>João Vitor Yoneyama</b></sub><br />
+    </td>
+    <td align="center">
+      <a href="https://github.com/KaykyMatos845">
+        <img src="https://img.shields.io/badge/github-KaykyMatos845-blue?style=plastic&logo=github&logoColor=white&labelColor=gray&color=blue" alt="KaykyMatos845 GitHub">
+      </a><br />
+      <sub><b>Kayky Matos</b></sub><br />
+    </td>
+    <td align="center">
+      <a href="https://github.com/Mathlps">
+        <img src="https://img.shields.io/badge/github-Mathlps-blue?style=plastic&logo=github&logoColor=white&labelColor=gray&color=blue" alt="Mathlps GitHub">
+      </a><br />
+      <sub><b>Matheus Lopes</b></sub><br />
+    </td>
+    <td align="center">
+      <a href="https://github.com/PaulingCavalcante">
+        <img src="https://img.shields.io/badge/github-PaulingCavalcante-blue?style=plastic&logo=github&logoColor=white&labelColor=gray&color=blue" alt="PaulingCavalcante GitHub">
+      </a><br />
+      <sub><b>Paulo Cavalcante</b></sub><br />
+    </td>
+    <td align="center">
+      <a href="https://github.com/paolaabrantes">
+        <img src="https://img.shields.io/badge/github-PaulingCavalcante-blue?style=plastic&logo=github&logoColor=white&labelColor=gray&color=blue" alt="paolaabrantes GitHub">
+      </a><br />
+      <sub><b>Paola Abrantes</b></sub><br />
+    </td>
+  </tr>
+</table>
 
 ---
 
